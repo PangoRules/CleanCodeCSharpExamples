@@ -1,0 +1,5 @@
+.vs/
+*.log
+.idea/
+TestResults/
+**/Debug
