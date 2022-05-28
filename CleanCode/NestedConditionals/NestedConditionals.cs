@@ -5,52 +5,41 @@ namespace CleanCode.NestedConditionals
     public class Customer
     {
         public int LoyaltyPoints { get; set; }
+
+        public bool IsGoldCustomer()
+        {
+            return LoyaltyPoints > 100;
+        }
     }
 
     public class Reservation
     {
+        public DateTime From { get; set; }
+        public Customer Customer { get; set; }
+        public bool IsCanceled { get; set; }
+
         public Reservation(Customer customer, DateTime dateTime)
         {
             From = dateTime;
             Customer = customer;
         }
 
-        public DateTime From { get; set; }
-        public Customer Customer { get; set; }
-        public bool IsCanceled { get; set; }
-
         public void Cancel()
         {
-            // Gold customers can cancel up to 24 hours before
-            if (Customer.LoyaltyPoints > 100)
-            {
-                // If reservation already started throw exception
-                if (DateTime.Now > From)
-                {
-                    throw new InvalidOperationException("It's too late to cancel.");
-                }
-                if ((From - DateTime.Now).TotalHours < 24)
-                {
-                    throw new InvalidOperationException("It's too late to cancel.");
-                }
-                IsCanceled = true;
-            }
-            else
-            {
-                // Regular customers can cancel up to 48 hours before
+            if(DateTime.Now > From || CustomerCanCancel())
+                throw new InvalidOperationException("It's too late to cancel.");
 
-                // If reservation already started throw exception
-                if (DateTime.Now > From)
-                {
-                    throw new InvalidOperationException("It's too late to cancel.");
-                }
-                if ((From - DateTime.Now).TotalHours < 48)
-                {
-                    throw new InvalidOperationException("It's too late to cancel.");
-                }
-                IsCanceled = true;
-            }
+            IsCanceled = true;
         }
 
+        private bool LessThanHours(int totalHours)
+        {
+            return (From - DateTime.Now).TotalHours < totalHours;
+        }
+
+        private bool CustomerCanCancel()
+        {
+            return (Customer.IsGoldCustomer() && LessThanHours(24) || !Customer.IsGoldCustomer() && LessThanHours(48));
+        }
     }
 }
