@@ -1,14 +1,36 @@
 ﻿
+using System;
+
 namespace CleanCode.SwitchStatements
 {
-    public class Customer
+    public abstract class Customer
     {
-        public CustomerType Type { get; set; }
+        public abstract MonthlyStatement GenerateStatement(MonthlyUsage monthlyUsage);
     }
 
-    public enum CustomerType
+    public class PayAsYouGoCustomer : Customer
     {
-        PayAsYouGo = 1,
-        Unlimited
+        public override MonthlyStatement GenerateStatement(MonthlyUsage monthlyUsage)
+        {
+            var statement = new MonthlyStatement();
+
+            statement.CallCost = 0.12f * monthlyUsage.CallMinutes;
+            statement.SmsCost = 0.12f * monthlyUsage.SmsCount;
+            statement.TotalCost = statement.CallCost + statement.SmsCost;
+
+            return statement;
+        }
+    }
+
+    public class Unlimited : Customer
+    {
+        public override MonthlyStatement GenerateStatement(MonthlyUsage monthlyUsage)
+        {
+            var statement = new MonthlyStatement();
+
+            statement.TotalCost = 54.90f;
+
+            return statement;
+        }
     }
 }

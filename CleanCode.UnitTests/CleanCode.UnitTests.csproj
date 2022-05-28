@@ -68,13 +68,13 @@
     <Compile Include="SwitchStatements\MonthlyStatementTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CleanCode\CleanCode.csproj">
-      <Project>{160687E6-3541-4856-8182-35844B88AC4D}</Project>
-      <Name>CleanCode</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\CleanCode\CleanCode.csproj">
+      <Project>{160687e6-3541-4856-8182-35844b88ac4d}</Project>
+      <Name>CleanCode</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
