@@ -4,22 +4,37 @@ using System.Collections.Generic;
 
 namespace CleanCode.OutputParameters
 {
+    public class CustomersResults
+    {
+        private int _totalCount;
+        private IEnumerable<Customer> _customers;
+
+        public CustomersResults(int totalCount, IEnumerable<Customer> customers)
+        {
+            _totalCount = totalCount;
+            _customers = customers;
+        }
+
+        public int TotalCount { get => _totalCount; }
+        public IEnumerable<Customer> Customers { get => _customers; }
+    }
+
     public class OutputParameters
     {
+        private const int PageIndex = 1;
+
         public void DisplayCustomers()
         {
-            int totalCount = 0;
-            var customers = GetCustomers(1, out totalCount);
+            var query = GetCustomers(PageIndex);
 
-            Console.WriteLine("Total customers: " + totalCount);
-            foreach (var c in customers)
+            Console.WriteLine("Total customers: " + query.TotalCount);
+            foreach (var c in query.Customers)
                 Console.WriteLine(c);
         }
 
-        public IEnumerable<Customer> GetCustomers(int pageIndex, out int totalCount)
+        public CustomersResults GetCustomers(int pageIndex)
         {
-            totalCount = 100;
-            return new List<Customer>();
+            return new CustomersResults(100, new List<Customer>());
         }
     }
 }

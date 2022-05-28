@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{160687E6-3541-4856-8182-35844B88AC4D}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CleanCode</RootNamespace>
     <AssemblyName>CleanCode</AssemblyName>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CleanCode.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,6 +66,7 @@
     <Compile Include="OutputParameters\OutputParameters.cs" />
     <Compile Include="PoorMethodSignatures\PoorMethodSignatures.cs" />
     <Compile Include="PoorOrderingOfClassMembers\PoorOrderingOfClassMembers.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwitchStatements\Customer.cs" />
     <Compile Include="SwitchStatements\MonthlyStatement.cs" />
